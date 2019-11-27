@@ -13,6 +13,8 @@ firebase.initializeApp(config);
 // Get a reference to the database service
 var database = firebase.database();
 
+//================NEW USER=================
+
 // attach event listener to newuser button
 $("#new-user-btn").on("click", function(event) { //get user info
     event.preventDefault(); // prevent default behavior
@@ -20,33 +22,49 @@ $("#new-user-btn").on("click", function(event) { //get user info
     var email = $("#username-input").val().trim();
     var password = $("#password-input").val().trim();
     // make a request to firebase
-    //Writing user data to the AUTHENTICATION
+    //Creating user data for the AUTHENTICATION
     createUser(email, password);
+    
     //Writing user data to the DATABASE
     writeUserData(email, password);
 });
 
+// new user request to firebase
+function createUser(email, password){
+    firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        console.log(errorCode, errorMessage);
+    });
+}
+
 //* * * TODO -- It is overwriting the database's users>undefined whenever we try to make a new user;
 //The problem is that is shouldn't be undefined--^^--it should be the user's userId number
-firebase.auth().onAuthStateChanged((user) => {
-    if (user) {
-      // User logged in already or has just logged in.
-      console.log("User ID:" + user.uid);
-      var userId = user.uid;
-      return userId; 
-    } else {
-      //* * * TODO - User not logged in or has just logged out. modal? (Not as important)
-    }
-});
+// var userId = "";
+// firebase.auth().onAuthStateChanged((user) => {
+//     if (user) {
+//         // User logged in already or has just logged in.
+//         var userId = user.uid;
+//         console.log("User ID:" + userId);
+//         return userId; 
+//     } else {
+//         console.log("No User Logged In");
+//       //* * * TODO - User not logged in or has just logged out. modal? (Not as important)
+//     }
+// });
 
 //adding user data to the Database
-function writeUserData(email, password, userId) {
+function writeUserData(email, password) {
+    userId = email.replace("@", "").replace(".", "");
+    console.log("writeUserData User ID:" + userId);
     firebase.database().ref('users/' + userId).set({
       email: email,
       password: password
       //user data
     });
 }
+
+//================LOGIN=================
 
 //* * * TODO: USE THIS TO LOAD TEXT IN THE MAIN BODY TO THE PAGE/SAVE IT TO THE DATABASE
 //Load all a user's files in the file tab
@@ -65,15 +83,6 @@ $("#login-btn").on("click", function(event) { //get user info
 
     //* * * TODO: WHEN A USER LOGS IN, LOADS THEIR FILES AND THE TOPICS ARRAY
 });
-
-// new user request to firebase
-function createUser(email, password){
-    firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
-        var errorCode = error.code;
-        var errorMessage = error.message;
-        console.log(errorCode, errorMessage);
-    });
-}
 
 // sign in request to firebase
 function signInUser(email, password){
