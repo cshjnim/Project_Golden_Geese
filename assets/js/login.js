@@ -1,11 +1,3 @@
-//PSUDOCODE FOR THE LOGIN
-    //Make a modal for first login
-    //Autofill for logins, if that isn't automatic?
-    //Load all a user's files in the file tab
-        //When a user opens the file, it's corresponding text appears below
-    //Also ability to make new in file tab
-        //With a file open, whenever a user types anything, replace the text on the database with the text in the box
-
 //Initialize Firebase
 var config = {
     apiKey: "AIzaSyBtr7RXc1xMn2Dpaq4clWNqINsWAfBwag0",
@@ -34,6 +26,8 @@ $("#new-user-btn").on("click", function(event) { //get user info
     writeUserData(email, password);
 });
 
+//* * * TODO -- It is overwriting the database's users>undefined whenever we try to make a new user;
+//The problem is that is shouldn't be undefined--^^--it should be the user's userId number
 firebase.auth().onAuthStateChanged((user) => {
     if (user) {
       // User logged in already or has just logged in.
@@ -41,7 +35,7 @@ firebase.auth().onAuthStateChanged((user) => {
       var userId = user.uid;
       return userId; 
     } else {
-      // User not logged in or has just logged out.
+      //* * * TODO - User not logged in or has just logged out. modal? (Not as important)
     }
 });
 
@@ -53,7 +47,12 @@ function writeUserData(email, password, userId) {
       //user data
     });
 }
-//TODO: USE THIS TO LOAD TEXT IN THE MAIN BODY TO THE PAGE/SAVE IT TO THE DATABASE
+
+//* * * TODO: USE THIS TO LOAD TEXT IN THE MAIN BODY TO THE PAGE/SAVE IT TO THE DATABASE
+//Load all a user's files in the file tab
+        //When a user opens the file, it's corresponding text appears below
+    //Also ability to make new in file tab
+        //With a file open, whenever a user types anything, replace the text on the database with the text in the box
 
 // attach event listener to login button
 $("#login-btn").on("click", function(event) { //get user info
@@ -64,7 +63,7 @@ $("#login-btn").on("click", function(event) { //get user info
     // make a request to firebase
     signInUser(email, password);
 
-    //TODO: WHEN A USER LOGS IN, LOADS THEIR FILES AND THE TOPICS ARRAY
+    //* * * TODO: WHEN A USER LOGS IN, LOADS THEIR FILES AND THE TOPICS ARRAY
 });
 
 // new user request to firebase
@@ -87,4 +86,17 @@ function signInUser(email, password){
 
 
 
-//TODO -- signout button
+//* * * TODO -- signout button
+
+
+
+
+//Show password function:
+function myFunction() {
+    var x = document.getElementById("password-input");
+    if (x.type === "password") {
+      x.type = "text";
+    } else {
+      x.type = "password";
+    }
+} 
