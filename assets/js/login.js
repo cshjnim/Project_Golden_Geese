@@ -21,10 +21,6 @@ firebase.initializeApp(config);
 // Get a reference to the database service
 var database = firebase.database();
 
-// save the user's profile into Firebase so we can list users,
-// use them in Security and Firebase Rules, and show profiles
-
-
 // attach event listener to newuser button
 $("#new-user-btn").on("click", function(event) { //get user info
     event.preventDefault(); // prevent default behavior
@@ -32,8 +28,9 @@ $("#new-user-btn").on("click", function(event) { //get user info
     var email = $("#username-input").val().trim();
     var password = $("#password-input").val().trim();
     // make a request to firebase
-  
+    //Writing user data to the AUTHENTICATION
     createUser(email, password);
+    //Writing user data to the DATABASE
     writeUserData(email, password);
 });
 
@@ -56,7 +53,7 @@ function writeUserData(email, password, userId) {
       //user data
     });
 }
-//USE THIS TO LOAD TEXT IN THE MAIN BODY TO THE PAGE/SAVE IT TO THE DATABASE
+//TODO: USE THIS TO LOAD TEXT IN THE MAIN BODY TO THE PAGE/SAVE IT TO THE DATABASE
 
 // attach event listener to login button
 $("#login-btn").on("click", function(event) { //get user info
@@ -66,6 +63,8 @@ $("#login-btn").on("click", function(event) { //get user info
     var password = $("#password-input").val().trim();
     // make a request to firebase
     signInUser(email, password);
+
+    //TODO: WHEN A USER LOGS IN, LOADS THEIR FILES AND THE TOPICS ARRAY
 });
 
 // new user request to firebase
