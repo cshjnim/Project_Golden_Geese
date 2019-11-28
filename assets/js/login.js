@@ -38,31 +38,28 @@ function createUser(email, password){
     });
 }
 
-//* * * TODO -- It is overwriting the database's users>undefined whenever we try to make a new user;
-//The problem is that is shouldn't be undefined--^^--it should be the user's userId number
-// var userId = "";
-// firebase.auth().onAuthStateChanged((user) => {
-//     if (user) {
-//         // User logged in already or has just logged in.
-//         var userId = user.uid;
-//         console.log("User ID:" + userId);
-//         return userId; 
-//     } else {
-//         console.log("No User Logged In");
-//       //* * * TODO - User not logged in or has just logged out. modal? (Not as important)
-//     }
-// });
-
+//:::::::::::DEBUG:::::::::::
 //adding user data to the Database
 function writeUserData(email, password) {
-    userId = email.replace("@", "").replace(".", "");
-    console.log("writeUserData User ID:" + userId);
-    firebase.database().ref('users/' + userId).set({
-      email: email,
-      password: password
-      //user data
-    });
-}
+    firebase.auth().onAuthStateChanged(function(user) {
+        if (user) {
+            var userId = firebase.auth().currentUser.uid; //getting the uid from auth
+            console.log("writeUserData User ID:" + userId); //for some reason, it is not going to the specific userId requested
+            firebase.database().ref('users/' + userId).set({ //It's just going everywhere, rewriting every user on the DB
+            email: email,
+            password: password,
+            uid: userId
+            //user data
+            });
+                
+        } else {
+          // No user is signed in.
+          console.log("No User Logged In");
+        }
+      });
+      
+    
+    }
 
 //================LOGIN=================
 
@@ -93,7 +90,30 @@ function signInUser(email, password){
     });
 }
 
+var typingTimer;                
+var doneTypingInterval = 5000;  //5 second timer
+var textInput = $('#content-box');
 
+//on keyup, start the countdown
+textInput.on('keyup', function () {
+  clearTimeout(typingTimer);
+  typingTimer = setTimeout(doneTyping, doneTypingInterval);
+});
+
+//on keydown, clear the countdown 
+textInput.on('keydown', function () {
+  clearTimeout(typingTimer);
+});
+
+//user is finished typing
+function doneTyping () {
+    console.log("Done typing");
+    //save the data to Firebase
+    firebase.database().ref('users/' + userId + "/text").set(
+        $("#main-writing").val()
+        //user data
+    );
+}
 
 //* * * TODO -- signout button
 
