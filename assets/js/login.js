@@ -13,83 +13,7 @@ firebase.initializeApp(config);
 // Get a reference to the database service
 var database = firebase.database();
 
-//================NEW USER=================
-
-// attach event listener to newuser button
-$("#new-user-btn").on("click", function(event) { //get user info
-    event.preventDefault(); // prevent default behavior
-    // grab values from password and email fields
-    var email = $("#username-input").val().trim();
-    var password = $("#password-input").val().trim();
-    // make a request to firebase
-    //Creating user data for the AUTHENTICATION
-    createUser(email, password);
-    
-    //Writing user data to the DATABASE
-    writeUserData(email, password);
-});
-
-// new user request to firebase
-function createUser(email, password){
-    firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
-        var errorCode = error.code;
-        var errorMessage = error.message;
-        console.log(errorCode, errorMessage);
-    });
-}
-
-//:::::::::::DEBUG:::::::::::
-//adding user data to the Database
-function writeUserData(email, password) {
-    firebase.auth().onAuthStateChanged(function(user) {
-        if (user) {
-            var userId = firebase.auth().currentUser.uid; //getting the uid from auth
-            console.log("writeUserData User ID:" + userId); //for some reason, it is not going to the specific userId requested
-            firebase.database().ref('users/' + userId).set({ //It's just going everywhere, rewriting every user on the DB
-            email: email,
-            password: password,
-            uid: userId
-            //user data
-            });
-                
-        } else {
-          // No user is signed in.
-          console.log("No User Logged In");
-        }
-      });
-      
-    
-    }
-
-//================LOGIN=================
-
-//* * * TODO: USE THIS TO LOAD TEXT IN THE MAIN BODY TO THE PAGE/SAVE IT TO THE DATABASE
-//Load all a user's files in the file tab
-        //When a user opens the file, it's corresponding text appears below
-    //Also ability to make new in file tab
-        //With a file open, whenever a user types anything, replace the text on the database with the text in the box
-
-// attach event listener to login button
-$("#login-btn").on("click", function(event) { //get user info
-    event.preventDefault(); // prevent default behavior
-    // grab values from password and email fields
-    var email = $("#username-input").val().trim();
-    var password = $("#password-input").val().trim();
-    // make a request to firebase
-    signInUser(email, password);
-
-    //* * * TODO: WHEN A USER LOGS IN, LOADS THEIR FILES AND THE TOPICS ARRAY
-});
-
-// sign in request to firebase
-function signInUser(email, password){
-    firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
-        var errorCode = error.code;
-        var errorMessage = error.message;
-        console.log(errorCode, errorMessage);
-    });
-}
-
+//TYPING TIMER TO SAVE TO DATABASE
 var typingTimer;                
 var doneTypingInterval = 5000;  //5 second timer
 var textInput = $('#content-box');
@@ -109,15 +33,109 @@ textInput.on('keydown', function () {
 function doneTyping () {
     console.log("Done typing");
     //save the data to Firebase
-    firebase.database().ref('users/' + userId + "/text").set(
-        $("#main-writing").val()
-        //user data
-    );
+    var textBody = $("#content-box").val();
+    console.log(textBody);
+    var user = firebase.auth().currentUser;
+    var userId = user.uid;
+    if (user && user != null) {
+    //Writing user data to the DATABASE
+        firebase.database().ref('users/' + userId ).child('text').set(
+            textBody
+            //user text
+        );
+    }
 }
 
+//================NEW USER=================
+
+// attach event listener to newuser button
+$("#new-user-btn").on("click", function(event) { //get user info
+    event.preventDefault(); // prevent default behavior
+    // grab values from password and email fields
+    var email = $("#username-input").val().trim();
+    var password = $("#password-input").val().trim();
+    // make a request to firebase
+    //Creating user data for the AUTHENTICATION
+    createUser(email, password);
+    password = $("#password-input").val("");
+});
+
+// new user request to firebase
+function createUser(email, password){
+    firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        console.log(errorCode, errorMessage);
+    });
+}
+
+//Writing user data to the Database
+function writeUserData(userId, name, email) {
+    firebase.database().ref('users/' + userId).set({
+      username: name,
+      email: email,
+      profile_picture : imageUrl
+    });
+  }
+  
+
+//FUNCTION TO GET CURRENTLY SIGNED IN USER
+$( document ).ready(function() {
+    firebase.auth().onAuthStateChanged(function(user) {
+        if (user) {
+            var user = firebase.auth().currentUser; 
+            var name, email, uid;
+            if (user != null) {
+                name = user.displayName;
+                email = user.email;
+                uid = user.uid;
+                //LOAD STUFF
+            } else {
+            // No user is signed in.
+            console.log("No User Logged In");
+            }
+        }
+    });
+});
+
+//================LOGIN=================
+
+//* * * TODO: USE THIS TO LOAD TEXT IN THE MAIN BODY TO THE PAGE/SAVE IT TO THE DATABASE
+//Load all a user's files in the file tab
+        //When a user opens the file, it's corresponding text appears below
+    //Also able to make new in file tab
+
+// attach event listener to login button
+$("#login-btn").on("click", function(event) { //get user info
+    event.preventDefault(); // prevent default behavior
+    // grab values from password and email fields
+    var email = $("#username-input").val().trim();
+    var password = $("#password-input").val().trim();
+    // make a request to firebase
+    signInUser(email, password);
+    password = $("#password-input").val("");
+    //* * * TODO: WHEN A USER LOGS IN, LOADS THEIR FILES AND THE TOPICS ARRAY
+});
+
+// sign in request to firebase
+function signInUser(email, password){
+    firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        console.log(errorCode, errorMessage);
+    });
+    //load text to text box once signed in
+    var userId = firebase.auth().currentUser.uid;
+    return firebase.database().ref('/users/' + userId + '/text').once('value').then(function(snapshot) {
+        console.log(snapshot);
+        $("#content-box").val(snapshot.node_.value_);
+    });
+
+
+}
+
+
 //* * * TODO -- signout button
-
-
 
 
 //Show password function:
@@ -128,4 +146,4 @@ function myFunction() {
     } else {
       x.type = "password";
     }
-} 
+}

@@ -69,7 +69,8 @@
 
   /* Login form */
   .form-group {
-    float: right;
+    align-content: right;
+    display: inline-block;
     color: #ffffff;
     text-align: center;
     padding: 5px 5px;
@@ -170,6 +171,7 @@ h3 {
     background: url("../images/notepad-image.jpg");
     background-size: cover;
     min-height: 300px;
+    flex-grow: 1;
 }
 
 /* main writing css*/
@@ -177,23 +179,26 @@ h3 {
     background: url("../images/white-lined-paper.jpg");
     background-size: cover;
     min-height: 500px;
+    flex-grow: 2;
 }
 
 /* image dropping css*/
 .image-dropping {
-
+    flex-grow: 1;
     background-color: #030303;
     min-height: 300px;
 }
 
 /* key-point css*/
 .key-point {
+  flex-grow: 1;
   background-color: #777474;
   min-height: 300px;
 }
 
 /* wikipedia css*/
 .wikipedia {
+  flex-grow: 1;
   background-color: #777474;
   min-height: 300px;
 }
@@ -203,10 +208,13 @@ footer {
   text-align: center;
   padding: 20px;
   background-color: #4e4e4e;
-  min-height: 100px;
+  min-height: 50px;
+  width: 100%;
+  position: fixed;
+  bottom: 0px;
 }
 
-/* Will's Stuff for topic box */
+/* Will's Stuff */
 
 .topics-pane{
   height: 200px;
@@ -225,3 +233,14 @@ footer {
 .topic-text{
   color: grey;
   mix-blend-mode: screen;
+}
+
+#content-box{
+  width: 100%;
+  height: 100%;
+}
+
+.flex-contain{
+  display: flex; 
+
+}

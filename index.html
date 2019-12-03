@@ -20,76 +20,76 @@
 <body>
 <div class="container">
 <!-- top tab bar for nav and login form-->
-  <header>
-    <div class="navbar">
-        <a href="#home">Home</a>
-        <div class="subnav">
-            <button class="subnavbtn">File <i class="fa fa-caret-down"></i></button>
-            <div class="subnav-content">
-            <a href="#open">Open</a>
-            <a href="#save">Save</a>
-            <a href="#exit">Exit</a>
+
+    <header id="masthead">
+        <div class="col-md-12 navbar">
+            <a href="#home">Home</a>
+            <div class="subnav">
+                <button class="subnavbtn">File <i class="fa fa-caret-down"></i></button>
+                <div class="subnav-content">
+                <a href="#open">Open</a>
+                <a href="#save">Save</a>
+                <a href="#exit">Exit</a>
+                </div>
+            </div>
+            <div class="subnav">
+                <button class="subnavbtn">Edit <i class="fa fa-caret-down"></i></button>
+                <div class="subnav-content">
+                <a href="#undo">Undo</a>
+                <a href="#redo">Redo</a>
+                </div>
+            </div>
+            <div class="subnav">
+                <button class="subnavbtn">Help <i class="fa fa-caret-down"></i></button>
+                <div class="subnav-content">
+                <a href="#faq">FAQ</a>
+                <a href="#contact">Contact</a>
+                </div>
+            </div>
+            <div>
+                <form>
+                    <span class="login">
+                        <div class="form-group">
+                        <input class="form-control" id="password-input" placeholder="" type="password">
+                        <label for="password-input">Password</label>
+                        <input type="checkbox" onclick="myFunction()">Show Password
+                        </div>
+                        <div class="form-group">
+                        <input class="form-control" id="username-input" placeholder="" type="text">
+                        <label for="username-input">Email</label>
+                        </div>
+                    </span>
+                </form>
+            </div>
+            <div>
+                <button class="btn btn-primary" id="login-btn" style="margin-left: 35px;">Log In</button>
+                <button class="btn btn-primary" id="new-user-btn">Create User</button>
             </div>
         </div>
-        <div class="subnav">
-            <button class="subnavbtn">Edit <i class="fa fa-caret-down"></i></button>
-            <div class="subnav-content">
-            <a href="#undi">Undo</a>
-            <a href="#redo">Redo</a>
-            </div>
-        </div>
-        <div class="subnav">
-            <button class="subnavbtn">Help <i class="fa fa-caret-down"></i></button>
-            <div class="subnav-content">
-            <a href="#faq">FAQ</a>
-            <a href="#contact">Contact</a>
-            </div>
-        </div>
-        <div>
-            <form>
-                <span class="login">
-                    <div class="form-group">
-                    <input class="form-control" id="password-input" placeholder="" type="password">
-                    <label for="password-input">Password</label>
-                    <input type="checkbox" onclick="myFunction()">Show Password
-                    </div>
-                    <div class="form-group">
-                    <input class="form-control" id="username-input" placeholder="" type="text">
-                    <label for="username-input">Email</label>
-                    </div>
-                </span>
-            </form>
-        </div>
-        <div>
-            <button class="btn btn-primary" id="login-btn" style="margin-left: 35px;">Log In</button>
-            <button class="btn btn-primary" id="new-user-btn">Create User</button>
-        </div>
+    </header>
+
+    <div class="chapter-outline">
+            <h3 style="color: #504f4f; margin-top:7%"> CHAPTER OUTLINE </h3>
     </div>
-  </header>
+    <div class="main-writing">
+            <textarea id="content-box">It was the best of dimes it was the worst of dimes...</textarea>
+    </div>
+    <div class="image-dropping">
+            <h3 style="color: #ffffff"> My Images </h3>
+    </div>
+    <div class="key-point">
+            <h3> Key points </h3>
+    </div>
+    <div class="wikipedia">
+            <h3> Wikipedia </h3>
+    </div>
+</div>
 
-  <div class="chapter-outline">
-        <h3 style="color: #504f4f; margin-top:7%"> CHAPTER OUTLINE </h3>
-  </div>
-  <div class="main-writing">
-        <p id="content-box" contenteditable="true">It was the best of dimes it was the worst of dimes...</p>
-  </div>
-  <div class="image-dropping">
-        <h3 style="color: #ffffff"> My Images </h3>
-  </div>
-  <div class="key-point">
-        <h3> Key points </h3>
-  </div>
-  <div class="wikipedia">
-        <h3> Wikipedia </h3>
-  </div>
-
-  <footer>
+<footer>
     <div class="footer-container">
         Copyright &copy; <a href="#masthead">Back To Top</a>
     </div>
-  </footer>
-
-</div>
+</footer>
 
     <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
   <script src="https://www.gstatic.com/firebasejs/7.5.0/firebase-app.js"></script>
