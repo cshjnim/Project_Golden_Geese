@@ -2,7 +2,15 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>WORDCLOUD</title>
+    <title>Wordcloud</title>
+    <meta name="description" content="A cloud storage word processor for story writers">
+    <meta name="keywords" content="Text Editor Word Processor Writing Story Edit Reference Thesaurus">
+    <meta name="author" content="Hyejin Kim, Chris Genel, Will Satcher">
+    <meta property="og:image" prefix="og: http://ogp.me/ns#" content="https://raw.githubusercontent.com/wsatchmo/Wordcloud/master/assets/images/wordcloud_blk.png">
+    <meta property="og:image:type" prefix="og: http://ogp.me/ns#" content="image/png">
+    <meta property="og:image:width" prefix="og: http://ogp.me/ns#" content="1024">
+    <meta property="og:image:height" prefix="og: http://ogp.me/ns#" content="1024">
+
     <!-- CSS Reset -->
     <link rel="stylesheet" type="text/css" href="assets/css/reset.css">
 
@@ -15,21 +23,27 @@
     <!-- Materialize References -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+    <!-- Fontawesome Reference -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
     
     <!-- Our Stylesheet -->
     <link rel="stylesheet" type="text/css" href="assets/css/style.css">
 
     <!-- Moment.js Reference -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
+    
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/png" href="assets/images/cloud.png"/>
 </head>
 
-    <body>
+    <body id="body-bg">
         <div id="document-main" class="container">
             <!-- top tab bar for nav and login form-->
             <header id="masthead">
                 <div class="navbar">
                     <div id="logo-div" class="logo-autosave col-md-6 col-sm-6 col-xs-6">
-                        <img src="assets/images/wordcloud.png" id="logo" alt="WordCloud's Logo!">
+                        <img src="assets/images/wordcloud.png" id="logo" alt="WordCloud Logo">
                         <br>
                         <p class="autosave-datetime"></p>
                     </div>
@@ -41,6 +55,7 @@
                                     <label for="username-input">Email</label>
                                 </div>
                                 <div>
+                                                            <!-- CAUSES DISCOLORATION -->
                                     <input class="form-control" id="password-input" placeholder="" type="text">
                                     <label for="password-input">Password</label>
                                 </div>
@@ -54,7 +69,7 @@
                         
                             <div class="login-buttons">
                                 <button class="btn btn-primary" id="login-btn">Sign In</button>
-                                <button class="btn btn-primary" id="new-user-btn">Create Account</button>
+                                <button class="btn btn-primary" id="new-user-btn">New User <i id="signup-cloud" class="fas fa-cloud"></i></button>
                                 <button class="btn btn-primary" id="signout-btn" onclick="signOutUser()">Sign Out</button>
                             </div>
                         </form>
@@ -170,9 +185,13 @@
             
             <footer>
                 <div class="footer-container">
-                    Copyright &copy; The Golden Geese 
+                    <a class="foot-text" href="https://github.com/cshjnim">Hyejin Kim</a>
+                    <i class="fa fa-cog fa-spin fa-fw"></i>
+                    <a class="foot-text" href="https://github.com/cgenel">Chris Genel</a>
+                    <i class="fa fa-cog fa-spin fa-fw"></i>
+                    <a class="foot-text" href="https://github.com/wsatchmo">Will Satcher</a> 
                     <br>
-                    <a id="back-to-top" href="#masthead">Back To Top</a>
+                    <a id="toggle-dark" href="#">Toggle Dark Mode <i id="dark-icon" class="fas fa-adjust"></i></a>
                 </div>
             </footer>
 

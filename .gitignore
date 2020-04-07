@@ -65,3 +65,6 @@ node_modules/
 .vscode
 .idea/
 .DS_Store
+
+# File icon
+Icon[\r]

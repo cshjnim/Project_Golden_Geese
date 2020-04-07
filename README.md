@@ -1,9 +1,8 @@
-# Project_Golden_Geese
+<img src="https://raw.githubusercontent.com/wsatchmo/Wordcloud/master/assets/images/wordcloud_blk.png" data-canonical-src="https://raw.githubusercontent.com/wsatchmo/Wordcloud/master/assets/images/wordcloud_blk.png" width="auto"/>
 
-## Wordcloud
 ### A cloud-storage word processor for story writers
 
-##### Team members: [Hyejin Kim](https://github.com/cshjnim "Hyejin's Github Page"), [Chris Genel](https://github.com/cgenel "Chris' Github Page"), [Will Satcher](https://github.com/wsatchmo "Will's Github Page")  — *The Golden Geese*
+##### Team members: [Hyejin Kim](https://github.com/cshjnim "Hyejin's Github Page"), [Chris Genel](https://github.com/cgenel "Chris' Github Page"), [Will Satcher](https://github.com/wsatchmo "My Github Page")  — *The Golden Geese*
 
 ```diff
 + HOW IT WORKS +
@@ -23,14 +22,16 @@
 •If a user types their password incorrectly, they are given the option of resetting their password via email
 
 ```diff
-! FEATURES TO BE ADDED !
+! POSSIBLE FUTURE FEATURES !
 ```
 
 •Switch reference image, topics, and thesaurus panes
 
-•Drag-and-drop images from local storage into reference images pane for custom reference images
+•Chapter outline pane - possibly as a separate tab in the topics pane
 
-•Chapter outline pane; possibly as a switchable tab in the topics pane
+•Highlight chapters simultaneously; highlight color corresponds to topic button color
+
+•Drag-and-drop images from local storage into reference images pane for custom references - separate tab
 
 ```diff
 # CODE NOTES #
@@ -65,6 +66,14 @@ firebase.initializeApp(config);
 ```js
 var nounSyn = noun.syn; //Simply find this variable and change it as shown below--
 var nounSyn = noun.ant; //Note that you will no longer see synonyms for words entered
+```
+
+•To change the highlight color, simply change the background-color in the **.highlight** CSS class:
+
+```css
+.highlight { 
+  background-color: rgb(47, 255, 134);
+}
 ```
 
 ##### Resources Utilized:
